@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks & Reminders | FieldPilot AI</title>
+    <link rel="stylesheet" href="/static/style.css">
+<link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#1f7a4d">
+    <link rel="icon" href="/static/icons/icon-192.png">
+    <link rel="apple-touch-icon" href="/static/icons/icon-192.png">
+    <script>window.__FP_DATA__ = {{ fp_data|tojson }}; window.__FP_USER__ = {{ fp_user|tojson }};</script>
+</head>
+
+<body>
+
+    <div class="app-shell">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <a class="brand" href="index.html">
+                <span class="brand-mark">🌱</span>
+                <span>
+                <strong>FieldPilot <em>AI</em></strong>
+                <small>SMART FARMING PLATFORM</small>
+            </span>
+            </a>
+
+            <div class="farm-switcher">
+                <span class="farm-avatar">F</span>
+                <span>
+                <strong>My Farm</strong>
+                <small>Farm workspace</small>
+            </span>
+                <span class="switcher-dot">●</span>
+            </div>
+
+            <p class="nav-label">WORKSPACE</p>
+
+            <nav class="nav-list">
+                <a class="nav-link" href="index.html">
+                    <span class="nav-icon">▦</span>Dashboard
+                </a>
+                <a class="nav-link" href="crops.html">
+                    <span class="nav-icon">♧</span>Crops &amp; Fields
+                </a>
+                <a class="nav-link" href="finance.html">
+                    <span class="nav-icon">₹</span>Finance
+                </a>
+                <a class="nav-link" href="inventory.html">
+                    <span class="nav-icon">▤</span>Inventory
+                </a>
+                <a class="nav-link" href="machinery.html">
+                    <span class="nav-icon">⚙</span>Machinery
+                </a>
+                <a class="nav-link" href="labour.html">
+                    <span class="nav-icon">♙</span>Labour
+                </a>
+                <a class="nav-link active" href="tasks.html">
+                    <span class="nav-icon">✓</span>Tasks
+                </a>
+            </nav>
+
+            <p class="nav-label tools-label">TOOLS</p>
+
+            <a class="nav-link" href="assistant.html">
+                <span class="nav-icon">✧</span>AI Farm Assistant
+            </a>
+            <a class="nav-link" href="settings.html">
+                <span class="nav-icon">⚙</span>Settings
+            </a>
+
+            <div class="sidebar-bottom">
+                <div class="help-card">
+                    <span class="help-icon">✦</span>
+                    <strong>Stay on track</strong>
+                    <p>Plan farm work and keep important tasks organized.</p>
+                </div>
+                <div class="profile-row">
+                    <span class="profile-avatar">A</span>
+                    <span>
+                    <strong>Farm Admin</strong>
+                    <small>Workspace owner</small>
+                </span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-area">
+
+            <header class="topbar">
+                <button class="mobile-menu" id="mobileMenu" type="button" aria-label="Open menu">☰</button>
+
+                <div class="breadcrumbs">
+                    <a href="index.html" class="tasks-breadcrumb">Workspace</a>
+                    <span>/</span>
+                    <strong>Tasks &amp; Reminders</strong>
+                </div>
+
+                <div class="topbar-actions">
+                    <div class="today-pill">
+                        <span class="live-dot"></span>
+                        <span id="todayLabel">Today</span>
+                    </div>
+                    <span class="top-avatar">A</span>
+                </div>
+            </header>
+
+            <section class="page-wrap">
+
+                <!-- HEADING -->
+                <div class="page-heading">
+                    <div>
+                        <div class="eyebrow">
+                            <span class="eyebrow-dot"></span> FARM WORK PLANNER
+                        </div>
+                        <h1>Tasks <span>&amp; Reminders</span></h1>
+                        <p>Organize farm work, set due dates and track completion.</p>
+                    </div>
+
+                    <div class="heading-actions">
+                        <button class="button button-light" type="button" id="exportTasks">Export CSV</button>
+                        <button class="button button-primary" type="button" id="openTaskForm">＋ Add Task</button>
+                    </div>
+                </div>
+
+                <!-- SUMMARY CARDS -->
+                <div class="tasks-stats">
+                    <article class="tasks-stat">
+                        <div class="tasks-stat-icon">📋</div>
+                        <small>Total Tasks</small>
+                        <strong id="totalTasks">0</strong>
+                        <span>All recorded tasks</span>
+                    </article>
+
+                    <article class="tasks-stat">
+                        <div class="tasks-stat-icon">⏳</div>
+                        <small>Pending</small>
+                        <strong id="pendingTasks">0</strong>
+                        <span>Tasks still to be completed</span>
+                    </article>
+
+                    <article class="tasks-stat">
+                        <div class="tasks-stat-icon">⚠️</div>
+                        <small>Overdue</small>
+                        <strong id="overdueTasks">0</strong>
+                        <span>Pending tasks past their due date</span>
+                    </article>
+
+                    <article class="tasks-stat">
+                        <div class="tasks-stat-icon">✅</div>
+                        <small>Completed</small>
+                        <strong id="completedTasks">0</strong>
+                        <span>Tasks marked complete</span>
+                    </article>
+                </div>
+
+                <!-- SEARCH / FILTERS -->
+                <div class="tasks-toolbar">
+                    <input type="search" id="searchTasks" placeholder="🔍 Search tasks or field..." aria-label="Search tasks">
+
+                    <select id="taskCategoryFilter" aria-label="Filter by category">
+                    <option value="All">All Categories</option>
+                    <option value="Irrigation">Irrigation</option>
+                    <option value="Fertilizer">Fertilizer</option>
+                    <option value="Pest Control">Pest Control</option>
+                    <option value="Crop Inspection">Crop Inspection</option>
+                    <option value="Machinery">Machinery</option>
+                    <option value="Harvesting">Harvesting</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                    <select id="taskStatusFilter" aria-label="Filter by status">
+                    <option value="All">All Statuses</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Completed">Completed</option>
+                </select>
+
+                    <button class="button button-light" type="button" id="resetTaskFilters">Reset</button>
+                </div>
+
+                <!-- ADD TASK FORM -->
+                <section class="panel tasks-form-panel" id="taskFormPanel" hidden>
+                    <div class="panel-heading">
+                        <div>
+                            <h2>Add Farm Task</h2>
+                            <p>Add a task, choose its priority and set the due date.</p>
+                        </div>
+                    </div>
+
+                    <form id="taskForm" class="tasks-form">
+
+                        <label>
+                        Task Title
+                        <input type="text" name="title" required maxlength="120"
+                               placeholder="e.g. Irrigate the north field">
+                    </label>
+
+                        <label>
+                        Category
+                        <select name="category" required>
+                            <option value="Irrigation">Irrigation</option>
+                            <option value="Fertilizer">Fertilizer</option>
+                            <option value="Pest Control">Pest Control</option>
+                            <option value="Crop Inspection">Crop Inspection</option>
+                            <option value="Machinery">Machinery</option>
+                            <option value="Harvesting">Harvesting</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </label>
+
+                        <label>
+                        Due Date
+                        <input type="date" name="dueDate" required>
+                    </label>
+
+                        <label>
+                        Priority
+                        <select name="priority" required>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                            <option value="Low">Low</option>
+                        </select>
+                    </label>
+
+                        <label>
+                        Field / Location
+                        <input type="text" name="location" maxlength="100"
+                               placeholder="e.g. North Field">
+                    </label>
+
+                        <label>
+                        Assigned To
+                        <input type="text" name="assignedTo" maxlength="100"
+                               placeholder="e.g. Ramesh">
+                    </label>
+
+                        <label class="tasks-full">
+                        Notes (Optional)
+                        <textarea name="notes" rows="3" maxlength="500"
+                                  placeholder="Add any instructions or details..."></textarea>
+                    </label>
+
+                        <div class="tasks-form-actions">
+                            <button class="button button-light" type="button" id="cancelTaskForm">Cancel</button>
+                            <button class="button button-primary" type="submit">
+                            Save Task
+                        </button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- TASK TABLE -->
+                <section class="panel tasks-panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h2>Farm Task List</h2>
+                            <p>Review due dates, priorities and task progress.</p>
+                        </div>
+                        <span class="tasks-record-count" id="taskRecordCount">
+                        0 tasks
+                    </span>
+                    </div>
+
+                    <div class="tasks-table-wrap">
+                        <table class="tasks-table">
+                            <thead>
+                                <tr>
+                                    <th>Task</th>
+                                    <th>Category</th>
+                                    <th>Due Date</th>
+                                    <th>Priority</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tasksTableBody"></tbody>
+                        </table>
+
+                        <div class="tasks-empty" id="tasksEmpty" hidden>
+                            No tasks found. Try a different filter or add a task.
+                        </div>
+                    </div>
+                </section>
+
+                <footer class="footer">
+                    <span>© <span id="currentYear"></span> FieldPilot AI. Smarter Operations. Better Farming.</span>
+                    <span>🌱 Growing a better tomorrow</span>
+                </footer>
+
+            </section>
+        </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="/static/shared.js"></script>
+
+    <script src="/static/tasks.js"></script>
+</body>
+
+</html>

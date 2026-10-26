@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crops & Fields | FieldPilot AI</title>
+    <link rel="stylesheet" href="/static/style.css">
+
+
+<link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#1f7a4d">
+    <link rel="icon" href="/static/icons/icon-192.png">
+    <link rel="apple-touch-icon" href="/static/icons/icon-192.png">
+    <script>window.__FP_DATA__ = {{ fp_data|tojson }}; window.__FP_USER__ = {{ fp_user|tojson }};</script>
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebar">
+            <a class="brand" href="index.html">
+                <span class="brand-mark">🌱</span>
+                <span><strong>FieldPilot <em>AI</em></strong>
+        <small>SMART FARMING PLATFORM</small></span>
+            </a>
+
+            <div class="farm-switcher">
+                <span class="farm-avatar">F</span>
+                <span><strong>My Farm</strong><small>Farm workspace</small></span>
+                <span class="switcher-dot">●</span>
+            </div>
+
+            <p class="nav-label">WORKSPACE</p>
+            <nav class="nav-list">
+                <a class="nav-link" href="index.html"><span class="nav-icon">▦</span>Dashboard</a>
+                <a class="nav-link active" href="crops.html"><span class="nav-icon">♧</span>Crops & Fields</a>
+                <a class="nav-link" href="finance.html">
+                    <span class="nav-icon">₹</span>Finance
+                </a>
+                <a class="nav-link" href="inventory.html">Inventory</a>
+                <a class="nav-link" href="machinery.html">Machinery</a>
+                <a class="nav-link" href="labour.html">Labour</a>
+                <a class="nav-link" href="tasks.html">Tasks</a>
+                <a class="nav-link" href="assistant.html">AI Farm Assistant</a>
+                <a class="nav-link" href="settings.html">Settings</a>
+            </nav>
+
+            <p class="nav-label tools-label">TOOLS</p>
+            <button class="nav-link" data-coming="AI Farm Assistant"><span class="nav-icon">✧</span>AI Farm Assistant</button>
+            <button class="nav-link" data-coming="Settings"><span class="nav-icon">⚙</span>Settings</button>
+
+            <div class="sidebar-bottom">
+                <div class="help-card">
+                    <span class="help-icon">✦</span>
+                    <strong>Grow smarter</strong>
+                    <p>Keep your farm records in one place.</p>
+                </div>
+                <div class="profile-row">
+                    <span class="profile-avatar">A</span>
+                    <span><strong>Farm Admin</strong><small>Workspace owner</small></span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-area">
+            <header class="topbar">
+                <button class="mobile-menu" id="mobileMenu" aria-label="Open menu">☰</button>
+                <div class="breadcrumbs">
+                    <a href="index.html" style="color:inherit;text-decoration:none">Workspace</a>
+                    <span>/</span><strong>Crops & Fields</strong>
+                </div>
+                <div class="topbar-actions">
+                    <div class="today-pill"><span class="live-dot"></span><span id="todayLabel">Today</span></div>
+                    <span class="top-avatar">A</span>
+                </div>
+            </header>
+
+            <section class="page-wrap">
+                <div class="page-heading">
+                    <div>
+                        <div class="eyebrow"><span class="eyebrow-dot"></span>FIELD MANAGEMENT</div>
+                        <h1>Crops <span>& Fields</span></h1>
+                        <p>Manage your crops, monitor growth and organize your fields.</p>
+                    </div>
+                    <div class="heading-actions">
+                        <button class="button button-primary" id="showForm">＋ Add crop</button>
+                    </div>
+                </div>
+
+                <div class="crop-stats">
+                    <article class="crop-stat">
+                        <small>Total cultivated area</small>
+                        <strong id="totalArea">120</strong> <span>acres</span>
+                    </article>
+                    <article class="crop-stat">
+                        <small>Active crops</small>
+                        <strong id="activeCrops">4</strong> <span>crop records</span>
+                    </article>
+                    <article class="crop-stat">
+                        <small>Harvesting crops</small>
+                        <strong id="harvestingCrops">1</strong> <span>in harvesting stage</span>
+                    </article>
+                </div>
+
+                <div class="crop-toolbar">
+                    <input type="search" id="searchCrop" placeholder="🔍  Search crop or field...">
+                    <select id="statusFilter" aria-label="Filter by crop status">
+          <option value="All">All statuses</option>
+          <option value="Growing">Growing</option>
+          <option value="Harvesting">Harvesting</option>
+          <option value="Planned">Planned</option>
+        </select>
+                    <button class="button button-light" id="resetSearch">Reset filters</button>
+                </div>
+
+                <section class="panel" id="formPanel" hidden>
+                    <div class="panel-heading">
+                        <div>
+                            <h2>Add a crop</h2>
+                            <p>Enter the details for your new crop record.</p>
+                        </div>
+                    </div>
+                    <form id="cropForm" class="crop-form">
+                        <label>Crop name
+            <input name="name" required placeholder="e.g. Wheat">
+          </label>
+                        <label>Field name
+            <input name="field" required placeholder="e.g. North Field">
+          </label>
+                        <label>Area (acres)
+            <input name="area" type="number" min="0.1" step="0.1" required placeholder="e.g. 12">
+          </label>
+                        <label>Crop status
+            <select name="status" required>
+              <option value="Growing">Growing</option>
+              <option value="Harvesting">Harvesting</option>
+              <option value="Planned">Planned</option>
+            </select>
+          </label>
+                        <label>Planting date
+            <input name="date" type="date">
+          </label>
+                        <div class="full form-actions">
+                            <button class="button button-light" type="button" id="cancelForm">Cancel</button>
+                            <button class="button button-primary" type="submit">Save crop</button>
+                        </div>
+                    </form>
+                </section>
+
+                <div class="crop-table-wrap">
+                    <table class="crop-table">
+                        <thead>
+                            <tr>
+                                <th>Crop</th>
+                                <th>Field</th>
+                                <th>Area</th>
+                                <th>Status</th>
+                                <th>Planting date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cropTableBody"></tbody>
+                    </table>
+                    <div class="empty-state" id="emptyState" hidden>No crops found. Try another search or add a crop.</div>
+                </div>
+
+                <footer class="footer">
+                    <span>© <span id="currentYear"></span> FieldPilot AI. Smarter Operations. Better Farming.</span>
+                    <span>🌱 Growing a better tomorrow</span>
+                </footer>
+            </section>
+        </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="/static/shared.js"></script>
+
+    <script src="/static/crops.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machinery | FieldPilot AI</title>
+    <link rel="stylesheet" href="/static/style.css">
+<link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#1f7a4d">
+    <link rel="icon" href="/static/icons/icon-192.png">
+    <link rel="apple-touch-icon" href="/static/icons/icon-192.png">
+    <script>window.__FP_DATA__ = {{ fp_data|tojson }}; window.__FP_USER__ = {{ fp_user|tojson }};</script>
+</head>
+
+<body>
+
+    <div class="app-shell">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <a class="brand" href="index.html">
+                <span class="brand-mark">🌱</span>
+                <span>
+                <strong>FieldPilot <em>AI</em></strong>
+                <small>SMART FARMING PLATFORM</small>
+            </span>
+            </a>
+
+            <div class="farm-switcher">
+                <span class="farm-avatar">F</span>
+                <span>
+                <strong>My Farm</strong>
+                <small>Farm workspace</small>
+            </span>
+                <span class="switcher-dot">●</span>
+            </div>
+
+            <p class="nav-label">WORKSPACE</p>
+
+            <nav class="nav-list">
+                <a class="nav-link" href="index.html">
+                    <span class="nav-icon">▦</span>Dashboard
+                </a>
+                <a class="nav-link" href="crops.html">
+                    <span class="nav-icon">♧</span>Crops &amp; Fields
+                </a>
+                <a class="nav-link" href="finance.html">
+                    <span class="nav-icon">₹</span>Finance
+                </a>
+                <a class="nav-link" href="inventory.html">
+                    <span class="nav-icon">▤</span>Inventory
+                </a>
+                <a class="nav-link active" href="machinery.html">
+                    <span class="nav-icon">⚙</span>Machinery
+                </a>
+                <a class="nav-link" href="labour.html">
+                    <span class="nav-icon">♙</span>Labour
+                </a>
+                <a class="nav-link" href="tasks.html">
+                    <span class="nav-icon">✓</span>Tasks
+                </a>
+            </nav>
+
+            <p class="nav-label tools-label">TOOLS</p>
+
+            <a class="nav-link" href="assistant.html">
+                <span class="nav-icon">✧</span>AI Farm Assistant
+            </a>
+            <a class="nav-link" href="settings.html">
+                <span class="nav-icon">⚙</span>Settings
+            </a>
+
+            <div class="sidebar-bottom">
+                <div class="help-card">
+                    <span class="help-icon">✦</span>
+                    <strong>Grow smarter</strong>
+                    <p>Keep your farm equipment organized and maintained.</p>
+                </div>
+                <div class="profile-row">
+                    <span class="profile-avatar">A</span>
+                    <span>
+                    <strong>Farm Admin</strong>
+                    <small>Workspace owner</small>
+                </span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-area">
+
+            <header class="topbar">
+                <button class="mobile-menu" id="mobileMenu" type="button" aria-label="Open menu">☰</button>
+
+                <div class="breadcrumbs">
+                    <a href="index.html" class="machinery-breadcrumb">Workspace</a>
+                    <span>/</span>
+                    <strong>Machinery</strong>
+                </div>
+
+                <div class="topbar-actions">
+                    <div class="today-pill">
+                        <span class="live-dot"></span>
+                        <span id="todayLabel">Today</span>
+                    </div>
+                    <span class="top-avatar">A</span>
+                </div>
+            </header>
+
+            <section class="page-wrap">
+
+                <div class="page-heading">
+                    <div>
+                        <div class="eyebrow">
+                            <span class="eyebrow-dot"></span> FARM EQUIPMENT MANAGEMENT
+                        </div>
+                        <h1>Farm <span>Machinery</span></h1>
+                        <p>Track equipment, monitor its condition and plan maintenance.</p>
+                    </div>
+
+                    <div class="heading-actions">
+                        <button class="button button-light" type="button" id="exportMachinery">Export CSV</button>
+                        <button class="button button-primary" type="button" id="openMachineryForm">＋ Add Equipment</button>
+                    </div>
+                </div>
+
+                <!-- SUMMARY -->
+                <div class="machinery-stats">
+                    <article class="machinery-stat">
+                        <div class="machinery-stat-icon">🚜</div>
+                        <small>Total Equipment</small>
+                        <strong id="totalEquipment">0</strong>
+                        <span>Registered equipment</span>
+                    </article>
+
+                    <article class="machinery-stat">
+                        <div class="machinery-stat-icon">✅</div>
+                        <small>Good Condition</small>
+                        <strong id="goodEquipment">0</strong>
+                        <span>Ready for farm work</span>
+                    </article>
+
+                    <article class="machinery-stat">
+                        <div class="machinery-stat-icon">🔧</div>
+                        <small>Needs Service</small>
+                        <strong id="serviceEquipment">0</strong>
+                        <span>Maintenance attention needed</span>
+                    </article>
+
+                    <article class="machinery-stat">
+                        <div class="machinery-stat-icon">🛠️</div>
+                        <small>Under Repair</small>
+                        <strong id="repairEquipment">0</strong>
+                        <span>Currently being repaired</span>
+                    </article>
+                </div>
+
+                <!-- SEARCH AND FILTER -->
+                <div class="machinery-toolbar">
+                    <input type="search" id="searchMachinery" placeholder="🔍 Search equipment, type or location..." aria-label="Search equipment">
+
+                    <select id="typeFilter" aria-label="Filter by equipment type">
+                    <option value="All">All Types</option>
+                    <option value="Tractor">Tractor</option>
+                    <option value="Harvester">Harvester</option>
+                    <option value="Water Pump">Water Pump</option>
+                    <option value="Sprayer">Sprayer</option>
+                    <option value="Tiller">Tiller</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                    <select id="conditionFilter" aria-label="Filter by condition">
+                    <option value="All">All Conditions</option>
+                    <option value="Good">Good</option>
+                    <option value="Needs Service">Needs Service</option>
+                    <option value="Under Repair">Under Repair</option>
+                </select>
+
+                    <button class="button button-light" type="button" id="resetMachineryFilters">Reset</button>
+                </div>
+
+                <!-- ADD EQUIPMENT FORM -->
+                <section class="panel machinery-form-panel" id="machineryFormPanel" hidden>
+                    <div class="panel-heading">
+                        <div>
+                            <h2>Add Farm Equipment</h2>
+                            <p>Enter equipment details and maintenance information.</p>
+                        </div>
+                    </div>
+
+                    <form id="machineryForm" class="machinery-form">
+
+                        <label>
+                        Equipment Name
+                        <input type="text" name="name" required
+                               maxlength="100" placeholder="e.g. John Deere Tractor">
+                    </label>
+
+                        <label>
+                        Equipment Type
+                        <select name="type" required>
+                            <option value="Tractor">Tractor</option>
+                            <option value="Harvester">Harvester</option>
+                            <option value="Water Pump">Water Pump</option>
+                            <option value="Sprayer">Sprayer</option>
+                            <option value="Tiller">Tiller</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </label>
+
+                        <label>
+                        Condition
+                        <select name="condition" required>
+                            <option value="Good">Good</option>
+                            <option value="Needs Service">Needs Service</option>
+                            <option value="Under Repair">Under Repair</option>
+                        </select>
+                    </label>
+
+                        <label>
+                        Purchase Date
+                        <input type="date" name="purchaseDate">
+                    </label>
+
+                        <label>
+                        Last Service Date
+                        <input type="date" name="lastService">
+                    </label>
+
+                        <label>
+                        Next Service Due
+                        <input type="date" name="nextService">
+                    </label>
+
+                        <label>
+                        Location
+                        <input type="text" name="location" maxlength="100"
+                               placeholder="e.g. Main Equipment Shed">
+                    </label>
+
+                        <label>
+                        Notes
+                        <input type="text" name="notes" maxlength="200"
+                               placeholder="e.g. 45 HP, needs oil check">
+                    </label>
+
+                        <div class="machinery-form-actions">
+                            <button class="button button-light" type="button" id="cancelMachineryForm">Cancel</button>
+                            <button class="button button-primary" type="submit">
+                            Save Equipment
+                        </button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- EQUIPMENT TABLE -->
+                <section class="panel machinery-panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h2>Equipment Records</h2>
+                            <p>Review equipment condition and upcoming service dates.</p>
+                        </div>
+                        <span class="machinery-record-count" id="machineryRecordCount">
+                        0 items
+                    </span>
+                    </div>
+
+                    <div class="machinery-table-wrap">
+                        <table class="machinery-table">
+                            <thead>
+                                <tr>
+                                    <th>Equipment</th>
+                                    <th>Type</th>
+                                    <th>Condition</th>
+                                    <th>Last Service</th>
+                                    <th>Next Service</th>
+                                    <th>Location</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="machineryTableBody"></tbody>
+                        </table>
+
+                        <div class="machinery-empty" id="machineryEmpty" hidden>
+                            No equipment found. Try another filter or add equipment.
+                        </div>
+                    </div>
+                </section>
+
+                <footer class="footer">
+                    <span>© <span id="currentYear"></span> FieldPilot AI. Smarter Operations. Better Farming.</span>
+                    <span>🌱 Growing a better tomorrow</span>
+                </footer>
+
+            </section>
+        </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="/static/shared.js"></script>
+
+    <script src="/static/machinery.js"></script>
+</body>
+
+</html>

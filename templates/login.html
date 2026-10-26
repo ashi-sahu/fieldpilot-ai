@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Log in - FieldPilot AI</title>
+    <meta name="theme-color" content="#1f7a4d">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="icon" href="/static/icons/icon-192.png">
+    <link rel="apple-touch-icon" href="/static/icons/icon-192.png">
+    <link rel="stylesheet" href="/static/auth.css">
+</head>
+<body>
+<main class="auth-wrap">
+    <section class="auth-card" aria-labelledby="authTitle">
+        <div class="auth-brand"><span class="auth-logo" aria-hidden="true">🌱</span>
+            <div><strong>FieldPilot <span>AI</span></strong><small>Smart farming, free</small></div></div>
+        <h1 id="authTitle">Welcome back</h1>
+        <p class="auth-sub">Log in to see your farm on any device.</p>
+
+        <div class="tabs" role="tablist" id="tabs">
+            <button type="button" role="tab" class="tab on" data-tab="email" aria-selected="true">Email</button>
+            <button type="button" role="tab" class="tab" data-tab="phone" id="phoneTab" hidden aria-selected="false">Phone</button>
+        </div>
+
+        <form id="emailForm" class="auth-form" novalidate>
+            <label id="nameRow" hidden>Your name<input name="name" autocomplete="name" maxlength="80"></label>
+            <label>Email<input name="email" type="email" autocomplete="email" required></label>
+            <label>Password<input name="password" type="password" autocomplete="current-password" minlength="8" required></label>
+            <p class="auth-error" id="emailError" role="alert"></p>
+            <button class="auth-btn" type="submit" id="emailSubmit">Log in</button>
+            <p class="auth-switch"><span id="switchText">New here?</span> <button type="button" class="link" id="switchBtn">Create an account</button></p>
+        </form>
+
+        <form id="phoneForm" class="auth-form" hidden novalidate>
+            <div id="phoneStep1">
+                <label>Mobile number<input name="phone" type="tel" inputmode="numeric" placeholder="10 digit number" autocomplete="tel" required></label>
+                <button class="auth-btn" type="submit">Send code</button>
+            </div>
+            <div id="phoneStep2" hidden>
+                <label>6 digit code<input name="code" inputmode="numeric" maxlength="6" autocomplete="one-time-code"></label>
+                <label>Your name (first time only)<input name="pname" maxlength="80" autocomplete="name"></label>
+                <p class="demo-note" id="demoNote" hidden></p>
+                <button class="auth-btn" type="submit">Verify and log in</button>
+            </div>
+            <p class="auth-error" id="phoneError" role="alert"></p>
+        </form>
+
+        <div id="googleBlock" hidden>
+            <div class="divider"><span>or</span></div>
+            <div id="googleButton"></div>
+        </div>
+        <p class="auth-fine">This is a free project. Please do not store sensitive personal information.</p>
+    </section>
+</main>
+<script src="/static/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labour Management | FieldPilot AI</title>
+    <link rel="stylesheet" href="/static/style.css">
+<link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#1f7a4d">
+    <link rel="icon" href="/static/icons/icon-192.png">
+    <link rel="apple-touch-icon" href="/static/icons/icon-192.png">
+    <script>window.__FP_DATA__ = {{ fp_data|tojson }}; window.__FP_USER__ = {{ fp_user|tojson }};</script>
+</head>
+
+<body>
+
+    <div class="app-shell">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <a class="brand" href="index.html">
+                <span class="brand-mark">🌱</span>
+                <span>
+                <strong>FieldPilot <em>AI</em></strong>
+                <small>SMART FARMING PLATFORM</small>
+            </span>
+            </a>
+
+            <div class="farm-switcher">
+                <span class="farm-avatar">F</span>
+                <span>
+                <strong>My Farm</strong>
+                <small>Farm workspace</small>
+            </span>
+                <span class="switcher-dot">●</span>
+            </div>
+
+            <p class="nav-label">WORKSPACE</p>
+
+            <nav class="nav-list">
+                <a class="nav-link" href="index.html">
+                    <span class="nav-icon">▦</span>Dashboard
+                </a>
+                <a class="nav-link" href="crops.html">
+                    <span class="nav-icon">♧</span>Crops &amp; Fields
+                </a>
+                <a class="nav-link" href="finance.html">
+                    <span class="nav-icon">₹</span>Finance
+                </a>
+                <a class="nav-link" href="inventory.html">
+                    <span class="nav-icon">▤</span>Inventory
+                </a>
+                <a class="nav-link" href="machinery.html">
+                    <span class="nav-icon">⚙</span>Machinery
+                </a>
+                <a class="nav-link active" href="labour.html">
+                    <span class="nav-icon">♙</span>Labour
+                </a>
+                <a class="nav-link" href="tasks.html">
+                    <span class="nav-icon">✓</span>Tasks
+                </a>
+            </nav>
+
+            <p class="nav-label tools-label">TOOLS</p>
+
+            <a class="nav-link" href="assistant.html">
+                <span class="nav-icon">✧</span>AI Farm Assistant
+            </a>
+            <a class="nav-link" href="settings.html">
+                <span class="nav-icon">⚙</span>Settings
+            </a>
+
+            <div class="sidebar-bottom">
+                <div class="help-card">
+                    <span class="help-icon">✦</span>
+                    <strong>Grow smarter</strong>
+                    <p>Organize your farm workforce and daily attendance.</p>
+                </div>
+                <div class="profile-row">
+                    <span class="profile-avatar">A</span>
+                    <span>
+                    <strong>Farm Admin</strong>
+                    <small>Workspace owner</small>
+                </span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-area">
+
+            <header class="topbar">
+                <button class="mobile-menu" id="mobileMenu" type="button" aria-label="Open menu">☰</button>
+
+                <div class="breadcrumbs">
+                    <a href="index.html" class="labour-breadcrumb">Workspace</a>
+                    <span>/</span>
+                    <strong>Labour Management</strong>
+                </div>
+
+                <div class="topbar-actions">
+                    <div class="today-pill">
+                        <span class="live-dot"></span>
+                        <span id="todayLabel">Today</span>
+                    </div>
+                    <span class="top-avatar">A</span>
+                </div>
+            </header>
+
+            <section class="page-wrap">
+
+                <!-- PAGE HEADING -->
+                <div class="page-heading">
+                    <div>
+                        <div class="eyebrow">
+                            <span class="eyebrow-dot"></span> WORKFORCE MANAGEMENT
+                        </div>
+                        <h1>Farm <span>Labour</span></h1>
+                        <p>Manage workers, daily wages and attendance records.</p>
+                    </div>
+
+                    <div class="heading-actions">
+                        <button class="button button-light" type="button" id="exportLabour">Export CSV</button>
+                        <button class="button button-primary" type="button" id="openLabourForm">＋ Add Worker</button>
+                    </div>
+                </div>
+
+                <!-- SUMMARY CARDS -->
+                <div class="labour-stats">
+                    <article class="labour-stat">
+                        <div class="labour-stat-icon">👥</div>
+                        <small>Total Workers</small>
+                        <strong id="totalWorkers">0</strong>
+                        <span>Registered worker records</span>
+                    </article>
+
+                    <article class="labour-stat">
+                        <div class="labour-stat-icon">✅</div>
+                        <small>Active Workers</small>
+                        <strong id="activeWorkers">0</strong>
+                        <span>Currently working with the farm</span>
+                    </article>
+
+                    <article class="labour-stat">
+                        <div class="labour-stat-icon">📅</div>
+                        <small>Present Today</small>
+                        <strong id="presentWorkers">0</strong>
+                        <span>Attendance marked for today</span>
+                    </article>
+
+                    <article class="labour-stat">
+                        <div class="labour-stat-icon">₹</div>
+                        <small>Daily Wage Estimate</small>
+                        <strong id="dailyWageTotal">₹0</strong>
+                        <span>Combined daily wages of active workers</span>
+                    </article>
+                </div>
+
+                <!-- SEARCH AND FILTER -->
+                <div class="labour-toolbar">
+                    <input type="search" id="searchLabour" placeholder="🔍 Search worker, role or phone..." aria-label="Search workers">
+
+                    <select id="roleFilter" aria-label="Filter workers by role">
+                    <option value="All">All Roles</option>
+                    <option value="Field Worker">Field Worker</option>
+                    <option value="Tractor Operator">Tractor Operator</option>
+                    <option value="Irrigation Worker">Irrigation Worker</option>
+                    <option value="Supervisor">Supervisor</option>
+                    <option value="Seasonal Worker">Seasonal Worker</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                    <select id="workerStatusFilter" aria-label="Filter by worker status">
+                    <option value="All">All Statuses</option>
+                    <option value="Active">Active</option>
+                    <option value="On Leave">On Leave</option>
+                </select>
+
+                    <button class="button button-light" type="button" id="resetLabourFilters">Reset</button>
+                </div>
+
+                <!-- ADD WORKER FORM -->
+                <section class="panel labour-form-panel" id="labourFormPanel" hidden>
+                    <div class="panel-heading">
+                        <div>
+                            <h2>Add Farm Worker</h2>
+                            <p>Enter the worker's details and daily wage.</p>
+                        </div>
+                    </div>
+
+                    <form id="labourForm" class="labour-form">
+
+                        <label>
+                        Full Name
+                        <input type="text" name="name" required maxlength="100"
+                               placeholder="e.g. Ramesh Kumar">
+                    </label>
+
+                        <label>
+                        Role
+                        <select name="role" required>
+                            <option value="Field Worker">Field Worker</option>
+                            <option value="Tractor Operator">Tractor Operator</option>
+                            <option value="Irrigation Worker">Irrigation Worker</option>
+                            <option value="Supervisor">Supervisor</option>
+                            <option value="Seasonal Worker">Seasonal Worker</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </label>
+
+                        <label>
+                        Daily Wage (₹)
+                        <input type="number" name="wage" min="0" step="0.01"
+                               required placeholder="e.g. 500">
+                    </label>
+
+                        <label>
+                        Worker Status
+                        <select name="status" required>
+                            <option value="Active">Active</option>
+                            <option value="On Leave">On Leave</option>
+                        </select>
+                    </label>
+
+                        <label>
+                        Phone Number (Optional)
+                        <input type="tel" name="phone" maxlength="20"
+                               placeholder="Enter phone number">
+                    </label>
+
+                        <label>
+                        Joining Date
+                        <input type="date" name="joiningDate">
+                    </label>
+
+                        <label class="labour-full">
+                        Notes (Optional)
+                        <input type="text" name="notes" maxlength="200"
+                               placeholder="e.g. Handles wheat field work">
+                    </label>
+
+                        <div class="labour-form-actions">
+                            <button class="button button-light" type="button" id="cancelLabourForm">Cancel</button>
+                            <button class="button button-primary" type="submit">
+                            Save Worker
+                        </button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- WORKER TABLE -->
+                <section class="panel labour-panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h2>Worker Records</h2>
+                            <p>Mark daily attendance and review worker details.</p>
+                        </div>
+                        <span class="labour-record-count" id="labourRecordCount">
+                        0 workers
+                    </span>
+                    </div>
+
+                    <div class="labour-table-wrap">
+                        <table class="labour-table">
+                            <thead>
+                                <tr>
+                                    <th>Worker</th>
+                                    <th>Role</th>
+                                    <th>Daily Wage</th>
+                                    <th>Status</th>
+                                    <th>Today's Attendance</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="labourTableBody"></tbody>
+                        </table>
+
+                        <div class="labour-empty" id="labourEmpty" hidden>
+                            No workers found. Try another filter or add a worker.
+                        </div>
+                    </div>
+                </section>
+
+                <footer class="footer">
+                    <span>© <span id="currentYear"></span> FieldPilot AI. Smarter Operations. Better Farming.</span>
+                    <span>🌱 Growing a better tomorrow</span>
+                </footer>
+
+            </section>
+        </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="/static/shared.js"></script>
+
+    <script src="/static/labour.js"></script>
+</body>
+
+</html>

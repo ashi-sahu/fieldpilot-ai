@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Farm Assistant | FieldPilot AI</title>
+    <link rel="stylesheet" href="/static/style.css">
+<link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#1f7a4d">
+    <link rel="icon" href="/static/icons/icon-192.png">
+    <link rel="apple-touch-icon" href="/static/icons/icon-192.png">
+    <script>window.__FP_DATA__ = {{ fp_data|tojson }}; window.__FP_USER__ = {{ fp_user|tojson }};</script>
+</head>
+
+<body>
+
+    <div class="app-shell">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <a class="brand" href="index.html">
+                <span class="brand-mark">🌱</span>
+                <span>
+                <strong>FieldPilot <em>AI</em></strong>
+                <small>SMART FARMING PLATFORM</small>
+            </span>
+            </a>
+
+            <div class="farm-switcher">
+                <span class="farm-avatar">F</span>
+                <span>
+                <strong>My Farm</strong>
+                <small>Farm workspace</small>
+            </span>
+                <span class="switcher-dot">●</span>
+            </div>
+
+            <p class="nav-label">WORKSPACE</p>
+
+            <nav class="nav-list">
+                <a class="nav-link" href="index.html">
+                    <span class="nav-icon">▦</span>Dashboard
+                </a>
+                <a class="nav-link" href="crops.html">
+                    <span class="nav-icon">♧</span>Crops &amp; Fields
+                </a>
+                <a class="nav-link" href="finance.html">
+                    <span class="nav-icon">₹</span>Finance
+                </a>
+                <a class="nav-link" href="inventory.html">
+                    <span class="nav-icon">▤</span>Inventory
+                </a>
+                <a class="nav-link" href="machinery.html">
+                    <span class="nav-icon">⚙</span>Machinery
+                </a>
+                <a class="nav-link" href="labour.html">
+                    <span class="nav-icon">♙</span>Labour
+                </a>
+                <a class="nav-link" href="tasks.html">
+                    <span class="nav-icon">✓</span>Tasks
+                </a>
+            </nav>
+
+            <p class="nav-label tools-label">TOOLS</p>
+
+            <a class="nav-link active" href="assistant.html">
+                <span class="nav-icon">✧</span>AI Farm Assistant
+            </a>
+            <a class="nav-link" href="settings.html">
+                <span class="nav-icon">⚙</span>Settings
+            </a>
+
+            <div class="sidebar-bottom">
+                <div class="help-card">
+                    <span class="help-icon">✦</span>
+                    <strong>Grow smarter</strong>
+                    <p>Explore farming questions with your digital farm assistant.</p>
+                </div>
+                <div class="profile-row">
+                    <span class="profile-avatar">A</span>
+                    <span>
+                    <strong>Farm Admin</strong>
+                    <small>Workspace owner</small>
+                </span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-area">
+
+            <header class="topbar">
+                <button class="mobile-menu" id="mobileMenu" type="button" aria-label="Open menu">☰</button>
+
+                <div class="breadcrumbs">
+                    <a href="index.html" class="assistant-breadcrumb">Workspace</a>
+                    <span>/</span>
+                    <strong>AI Farm Assistant</strong>
+                </div>
+
+                <div class="topbar-actions">
+                    <div class="today-pill">
+                        <span class="live-dot"></span>
+                        <span id="todayLabel">Today</span>
+                    </div>
+                    <span class="top-avatar">A</span>
+                </div>
+            </header>
+
+            <section class="page-wrap assistant-page">
+
+                <!-- HEADING -->
+                <div class="page-heading assistant-heading">
+                    <div>
+                        <div class="eyebrow">
+                            <span class="eyebrow-dot"></span> YOUR DIGITAL FARMING COMPANION
+                        </div>
+                        <h1>AI Farm <span>Assistant</span></h1>
+                        <p>Ask questions about crops, irrigation, soil, pests and farm management.</p>
+                    </div>
+
+                    <div class="heading-actions">
+                        <button class="button button-light" id="clearChat" type="button">Clear Chat</button>
+                    </div>
+                </div>
+
+                <!-- DEMO MODE NOTICE -->
+                <div class="assistant-demo-notice">
+                    <span class="assistant-demo-dot"></span>
+                    <span>
+                    <strong>Smart helper, not a live AI</strong>
+                    <small>Answers use your saved farm records and built-in farming tips. Verify advice with local experts.</small>
+                </span>
+                </div>
+
+                <div class="assistant-layout">
+
+                    <!-- CHAT AREA -->
+                    <section class="panel assistant-chat-panel">
+
+                        <div class="assistant-chat-header">
+                            <div class="assistant-avatar">🌱</div>
+                            <div class="assistant-chat-title">
+                                <h2>FieldPilot Farm Assistant</h2>
+                                <p><span class="assistant-online-dot"></span> Farming help and guidance</p>
+                            </div>
+                            <span class="assistant-language-label">English / Hinglish</span>
+                        </div>
+
+                        <div class="assistant-messages" id="chatMessages" aria-live="polite" aria-label="Chat messages">
+
+                            <div class="assistant-message assistant-bot-message">
+                                <div class="assistant-message-avatar">🌱</div>
+                                <div class="assistant-message-content">
+                                    <span class="assistant-sender">FieldPilot Assistant</span>
+                                    <div class="assistant-bubble">
+                                        Namaste! 👋 Welcome to FieldPilot AI.
+
+                                        <br><br> You can ask me about crops, irrigation, soil health, pest management and farm planning.
+
+                                        <br><br> Try one of the suggested questions below to explore this demo.
+                                    </div>
+                                    <small class="assistant-message-time">Farm support</small>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- QUICK QUESTIONS -->
+                        <div class="assistant-quick-prompts">
+                            <p>TRY ASKING</p>
+                            <div class="assistant-prompt-list">
+                                <button type="button" class="assistant-prompt" data-prompt="How can I care for my soybean crop?">
+                                🌱 Soybean crop care
+                            </button>
+                                <button type="button" class="assistant-prompt" data-prompt="Why are my crop leaves turning yellow?">
+                                🍃 Yellow leaves
+                            </button>
+                                <button type="button" class="assistant-prompt" data-prompt="How should I plan irrigation for my field?">
+                                💧 Irrigation guidance
+                            </button>
+                                <button type="button" class="assistant-prompt" data-prompt="How can I improve soil health?">
+                                🌾 Soil health
+                            </button>
+                            </div>
+                        </div>
+
+                        <!-- CHAT INPUT -->
+                        <form class="assistant-input-area" id="chatForm">
+                            <textarea id="chatInput" rows="1" maxlength="1000" required placeholder="Ask your farming question..." aria-label="Write your farming question"></textarea>
+
+                            <button type="submit" id="sendMessage" class="assistant-send-button" aria-label="Send message">➤</button>
+                        </form>
+
+                        <p class="assistant-input-hint">
+                            Demo guidance only. Verify important crop, pesticide and fertilizer decisions with a qualified local agricultural expert.
+                        </p>
+
+                    </section>
+
+                    <!-- RIGHT INFORMATION PANEL -->
+                    <aside class="assistant-side-panel">
+
+                        <section class="panel assistant-welcome-card">
+                            <div class="assistant-welcome-icon">✧</div>
+                            <h2>How can I help your farm?</h2>
+                            <p>
+                                Use this assistant to explore common farming topics. Future versions can use connected AI and your saved farm records.
+                            </p>
+                        </section>
+
+                        <section class="panel assistant-topics-card">
+                            <div class="panel-heading">
+                                <div>
+                                    <h2>Farming Topics</h2>
+                                    <p>Select a topic to start a demo question.</p>
+                                </div>
+                            </div>
+
+                            <button class="assistant-topic" type="button" data-prompt="How do I plan crop sowing and harvesting?">
+                            <span class="assistant-topic-icon">🌱</span>
+                            <span>
+                                <strong>Crop Planning</strong>
+                                <small>Sowing, growth and harvesting</small>
+                            </span>
+                            <span class="assistant-topic-arrow">›</span>
+                        </button>
+
+                            <button class="assistant-topic" type="button" data-prompt="How can I manage common crop pests safely?">
+                            <span class="assistant-topic-icon">🐛</span>
+                            <span>
+                                <strong>Pest Management</strong>
+                                <small>Identify problems and next steps</small>
+                            </span>
+                            <span class="assistant-topic-arrow">›</span>
+                        </button>
+
+                            <button class="assistant-topic" type="button" data-prompt="How can I manage farm expenses and income?">
+                            <span class="assistant-topic-icon">₹</span>
+                            <span>
+                                <strong>Farm Finance</strong>
+                                <small>Expenses, income and planning</small>
+                            </span>
+                            <span class="assistant-topic-arrow">›</span>
+                        </button>
+
+                            <button class="assistant-topic" type="button" data-prompt="How can I plan farm tasks for this week?">
+                            <span class="assistant-topic-icon">📋</span>
+                            <span>
+                                <strong>Farm Tasks</strong>
+                                <small>Daily work and reminders</small>
+                            </span>
+                            <span class="assistant-topic-arrow">›</span>
+                        </button>
+                        </section>
+
+                        <section class="assistant-safety-note">
+                            <strong>🌿 Helpful reminder</strong>
+                            <p>
+                                Farming decisions depend on crop variety, location, soil and weather. Check local conditions before acting on advice.
+                            </p>
+                        </section>
+
+                    </aside>
+
+                </div>
+
+                <footer class="footer">
+                    <span>
+                    © <span id="currentYear"></span> FieldPilot AI. Smarter Operations. Better Farming.
+                    </span>
+                    <span>🌱 Growing a better tomorrow</span>
+                </footer>
+
+            </section>
+        </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="/static/shared.js"></script>
+
+    <script src="/static/assistant.js"></script>
+</body>
+
+</html>

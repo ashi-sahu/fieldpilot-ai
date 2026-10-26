@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Manage farm income, expenses and transactions with FieldPilot AI.">
+    <title>Finance | FieldPilot AI</title>
+    <link rel="stylesheet" href="/static/style.css">
+<link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#1f7a4d">
+    <link rel="icon" href="/static/icons/icon-192.png">
+    <link rel="apple-touch-icon" href="/static/icons/icon-192.png">
+    <script>window.__FP_DATA__ = {{ fp_data|tojson }}; window.__FP_USER__ = {{ fp_user|tojson }};</script>
+</head>
+
+<body>
+    <div class="app-shell">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+
+            <a class="brand" href="index.html">
+                <span class="brand-mark">🌱</span>
+                <span>
+                    <strong>FieldPilot <em>AI</em></strong>
+                    <small>SMART FARMING PLATFORM</small>
+                </span>
+            </a>
+
+            <div class="farm-switcher">
+                <span class="farm-avatar">F</span>
+                <span>
+                    <strong>My Farm</strong>
+                    <small>Farm workspace</small>
+                </span>
+                <span class="switcher-dot">●</span>
+            </div>
+
+            <p class="nav-label">WORKSPACE</p>
+
+            <nav class="nav-list" aria-label="Main navigation">
+                <a class="nav-link" href="index.html">
+                    <span class="nav-icon">▦</span> Dashboard
+                </a>
+
+                <a class="nav-link" href="crops.html">
+                    <span class="nav-icon">♧</span> Crops &amp; Fields
+                </a>
+
+                <a class="nav-link active" href="finance.html">
+                    <span class="nav-icon">₹</span> Finance
+                </a>
+
+                <a class="nav-link" href="inventory.html">
+                    <span class="nav-icon">▤</span> Inventory
+                </a>
+
+                <a class="nav-link" href="machinery.html">
+                    <span class="nav-icon">⚙</span> Machinery
+                </a>
+
+                <a class="nav-link" href="labour.html">
+                    <span class="nav-icon">♙</span> Labour
+                </a>
+
+                <a class="nav-link" href="tasks.html">
+                    <span class="nav-icon">✓</span> Tasks
+                </a>
+            </nav>
+
+            <p class="nav-label tools-label">TOOLS</p>
+
+            <a class="nav-link" href="assistant.html">
+                <span class="nav-icon">✧</span> AI Farm Assistant
+            </a>
+
+            <a class="nav-link" href="settings.html">
+                <span class="nav-icon">⚙</span> Settings
+            </a>
+
+            <div class="sidebar-bottom">
+                <div class="help-card">
+                    <span class="help-icon">✦</span>
+                    <strong>Grow smarter</strong>
+                    <p>Track farm income and expenses in one place.</p>
+                </div>
+
+                <div class="profile-row">
+                    <span class="profile-avatar">A</span>
+                    <span>
+                        <strong>Farm Admin</strong>
+                        <small>Workspace owner</small>
+                    </span>
+                </div>
+            </div>
+
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-area">
+
+            <header class="topbar">
+                <button class="mobile-menu" id="mobileMenu" type="button" aria-label="Open menu">☰</button>
+
+                <div class="breadcrumbs">
+                    <a href="index.html" style="color:inherit;text-decoration:none">
+                        Workspace
+                    </a>
+                    <span>/</span>
+                    <strong>Finance</strong>
+                </div>
+
+                <div class="topbar-actions">
+                    <div class="today-pill">
+                        <span class="live-dot"></span>
+                        <span id="todayLabel">Today</span>
+                    </div>
+                    <span class="top-avatar">A</span>
+                </div>
+            </header>
+
+            <section class="page-wrap">
+
+                <!-- PAGE HEADING -->
+                <div class="page-heading">
+                    <div>
+                        <div class="eyebrow">
+                            <span class="eyebrow-dot"></span> FARM FINANCIAL MANAGEMENT
+                        </div>
+
+                        <h1>Farm <span>Finance</span></h1>
+
+                        <p>
+                            Understand your farm's income, expenses and net balance.
+                        </p>
+                    </div>
+
+                    <div class="heading-actions">
+                        <button class="button button-light" id="exportFinance" type="button">↓ Export CSV</button>
+
+                        <button class="button button-primary" id="openFinanceForm" type="button">＋ Add transaction</button>
+                    </div>
+                </div>
+
+                <!-- FINANCIAL SUMMARY -->
+                <section class="finance-summary">
+
+                    <article class="money-card">
+                        <span class="label">Total income</span>
+                        <strong class="green" id="totalIncome">₹0</strong>
+                        <small>All recorded income</small>
+                    </article>
+
+                    <article class="money-card">
+                        <span class="label">Total expenses</span>
+                        <strong class="orange" id="totalExpenses">₹0</strong>
+                        <small>All recorded expenses</small>
+                    </article>
+
+                    <article class="money-card">
+                        <span class="label">Net balance</span>
+                        <strong id="netBalance">₹0</strong>
+                        <small>Income minus expenses</small>
+                    </article>
+
+                    <article class="money-card">
+                        <span class="label">Transactions</span>
+                        <strong id="transactionCount">0</strong>
+                        <small>Total recorded entries</small>
+                    </article>
+
+                </section>
+
+                <!-- FINANCE LAYOUT: CHART, TABLE AND FORM -->
+                <div class="finance-layout">
+
+                    <!-- CHART AND TRANSACTION TABLE -->
+                    <section>
+
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <div>
+                                    <h2>Income vs expenses</h2>
+                                    <p>Monthly breakdown based on saved transactions</p>
+                                </div>
+                            </div>
+
+                            <div class="finance-visual" id="financeChart"></div>
+
+                            <div class="legend">
+                                <span><i class="income-key"></i>Income</span>
+                                <span><i class="expense-key"></i>Expenses</span>
+                            </div>
+
+                            <div class="balance-note" id="balanceNote">
+                                Your financial summary will appear here.
+                            </div>
+                        </div>
+
+                        <div class="finance-toolbar">
+                            <input type="search" id="searchTransactions" placeholder="🔍 Search transactions..." aria-label="Search transactions">
+
+                            <select id="transactionFilter" aria-label="Filter transactions">
+                                <option value="All">All types</option>
+                                <option value="Income">Income</option>
+                                <option value="Expense">Expense</option>
+                            </select>
+                        </div>
+
+                        <div class="transaction-table-wrap">
+                            <table class="transaction-table">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Category</th>
+                                        <th>Date</th>
+                                        <th>Type</th>
+                                        <th>Amount</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="transactionBody"></tbody>
+                            </table>
+
+                            <div class="finance-empty" id="emptyTransactions" hidden>
+                                No transactions found.
+                            </div>
+                        </div>
+
+                    </section>
+
+                    <!-- ADD TRANSACTION FORM: KEEPING ITS ORIGINAL POSITION -->
+                    <section class="panel" id="formPanel" hidden>
+
+                        <div class="panel-heading">
+                            <div>
+                                <h2>Add transaction</h2>
+                                <p>Record income or an expense.</p>
+                            </div>
+                        </div>
+
+                        <form id="financeForm" class="finance-form">
+
+                            <div class="type-selector">
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="type"
+                                        value="Income"
+                                        checked>
+                                    Income
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="type"
+                                        value="Expense">
+                                    Expense
+                                </label>
+                            </div>
+
+                            <label>
+                                Description
+                                <input
+                                    name="description"
+                                    required
+                                    maxlength="100"
+                                    placeholder="e.g. Wheat sale">
+                            </label>
+
+                            <label>
+                                Category
+                                <select name="category" required>
+                                    <option value="Crop sale">Crop sale</option>
+                                    <option value="Seeds">Seeds</option>
+                                    <option value="Fertilizer">Fertilizer</option>
+                                    <option value="Labour">Labour</option>
+                                    <option value="Equipment">Equipment</option>
+                                    <option value="Irrigation">Irrigation</option>
+                                    <option value="Transport">Transport</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </label>
+
+                            <label>
+                                Amount (₹)
+                                <input
+                                    name="amount"
+                                    type="number"
+                                    min="0.01"
+                                    step="0.01"
+                                    required
+                                    placeholder="Enter amount">
+                            </label>
+
+                            <label>
+                                Date
+                                <input name="date" type="date" required>
+                            </label>
+
+                            <label>
+                                Notes (optional)
+                                <textarea
+                                    name="notes"
+                                    rows="3"
+                                    maxlength="300"
+                                    placeholder="Add any details..."></textarea>
+                            </label>
+
+                            <button type="submit" class="button button-primary">Save transaction</button>
+
+                            <button type="button" class="button button-light" id="cancelFinanceForm">Cancel</button>
+
+                        </form>
+                    </section>
+
+                </div>
+
+                <footer class="footer">
+                    <span>
+                        © <span id="currentYear"></span> FieldPilot AI. Smarter Operations. Better Farming.
+                    </span>
+                    <span>🌱 Growing a better tomorrow</span>
+                </footer>
+
+            </section>
+        </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="/static/shared.js"></script>
+
+    <script src="/static/finance.js"></script>
+</body>
+
+</html>

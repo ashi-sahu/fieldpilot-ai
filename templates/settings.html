@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Manage your FieldPilot AI farm settings and preferences.">
+    <title>Settings | FieldPilot AI</title>
+    <link rel="stylesheet" href="/static/style.css">
+<link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#1f7a4d">
+    <link rel="icon" href="/static/icons/icon-192.png">
+    <link rel="apple-touch-icon" href="/static/icons/icon-192.png">
+    <script>window.__FP_DATA__ = {{ fp_data|tojson }}; window.__FP_USER__ = {{ fp_user|tojson }};</script>
+</head>
+
+<body>
+
+    <div class="app-shell">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+
+            <a class="brand" href="index.html">
+                <span class="brand-mark">🌱</span>
+                <span>
+                <strong>FieldPilot <em>AI</em></strong>
+                <small>SMART FARMING PLATFORM</small>
+            </span>
+            </a>
+
+            <div class="farm-switcher">
+                <span class="farm-avatar">F</span>
+                <span>
+                <strong id="sidebarFarmName">My Farm</strong>
+                <small>Farm workspace</small>
+            </span>
+                <span class="switcher-dot">●</span>
+            </div>
+
+            <p class="nav-label">WORKSPACE</p>
+
+            <nav class="nav-list">
+                <a class="nav-link" href="index.html">
+                    <span class="nav-icon">▦</span>Dashboard
+                </a>
+                <a class="nav-link" href="crops.html">
+                    <span class="nav-icon">♧</span>Crops &amp; Fields
+                </a>
+                <a class="nav-link" href="finance.html">
+                    <span class="nav-icon">₹</span>Finance
+                </a>
+                <a class="nav-link" href="inventory.html">
+                    <span class="nav-icon">▤</span>Inventory
+                </a>
+                <a class="nav-link" href="machinery.html">
+                    <span class="nav-icon">⚙</span>Machinery
+                </a>
+                <a class="nav-link" href="labour.html">
+                    <span class="nav-icon">♙</span>Labour
+                </a>
+                <a class="nav-link" href="tasks.html">
+                    <span class="nav-icon">✓</span>Tasks
+                </a>
+            </nav>
+
+            <p class="nav-label tools-label">TOOLS</p>
+
+            <a class="nav-link" href="assistant.html">
+                <span class="nav-icon">✧</span>AI Farm Assistant
+            </a>
+            <a class="nav-link active" href="settings.html">
+                <span class="nav-icon">⚙</span>Settings
+            </a>
+
+            <div class="sidebar-bottom">
+                <div class="help-card">
+                    <span class="help-icon">✦</span>
+                    <strong>Grow smarter</strong>
+                    <p>Manage your farm workspace and preferences.</p>
+                </div>
+
+                <div class="profile-row">
+                    <span class="profile-avatar">A</span>
+                    <span>
+                    <strong id="sidebarOwnerName">Farm Admin</strong>
+                    <small>Workspace owner</small>
+                </span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-area">
+
+            <header class="topbar">
+                <button class="mobile-menu" id="mobileMenu" type="button" aria-label="Open menu">☰</button>
+
+                <div class="breadcrumbs">
+                    <a href="index.html" class="settings-breadcrumb">Workspace</a>
+                    <span>/</span>
+                    <strong>Settings</strong>
+                </div>
+
+                <div class="topbar-actions">
+                    <div class="today-pill">
+                        <span class="live-dot"></span>
+                        <span id="todayLabel">Today</span>
+                    </div>
+                    <span class="top-avatar">A</span>
+                </div>
+            </header>
+
+            <section class="page-wrap">
+
+                <!-- PAGE HEADING -->
+                <div class="page-heading">
+                    <div>
+                        <div class="eyebrow">
+                            <span class="eyebrow-dot"></span> WORKSPACE CONFIGURATION
+                        </div>
+                        <h1>Farm <span>Settings</span></h1>
+                        <p>Manage farm information and personalize your workspace.</p>
+                    </div>
+                </div>
+
+                <!-- SETTINGS INTRO -->
+                <div class="settings-intro">
+                    <div class="settings-intro-icon">⚙</div>
+                    <div>
+                        <strong>Personalize FieldPilot AI</strong>
+                        <p>
+                            Update your farm details and choose the preferences that work best for you.
+                        </p>
+                    </div>
+                </div>
+
+                <form id="settingsForm">
+
+                    <!-- FARM PROFILE -->
+                    <section class="panel settings-panel">
+                        <div class="settings-section-heading">
+                            <div class="settings-section-icon">🌱</div>
+                            <div>
+                                <h2>Farm Profile</h2>
+                                <p>Basic information about your farm and its owner.</p>
+                            </div>
+                        </div>
+
+                        <div class="settings-fields">
+
+                            <label class="settings-field">
+                            <span>Farm Name</span>
+                            <input
+                                type="text"
+                                name="farmName"
+                                maxlength="100"
+                                required
+                                placeholder="e.g. Green Valley Farm">
+                        </label>
+
+                            <label class="settings-field">
+                            <span>Owner Name</span>
+                            <input
+                                type="text"
+                                name="ownerName"
+                                maxlength="100"
+                                required
+                                placeholder="Enter farm owner's name">
+                        </label>
+
+                            <label class="settings-field">
+                            <span>Location / District</span>
+                            <input
+                                type="text"
+                                name="location"
+                                maxlength="150"
+                                placeholder="e.g. Jabalpur, Madhya Pradesh">
+                        </label>
+
+                            <label class="settings-field">
+                            <span>Contact Phone</span>
+                            <input
+                                type="tel"
+                                name="phone"
+                                maxlength="25"
+                                placeholder="Enter contact number">
+                        </label>
+
+                            <label class="settings-field settings-field-full">
+                            <span>Contact Email</span>
+                            <input
+                                type="email"
+                                name="email"
+                                maxlength="150"
+                                placeholder="e.g. farmer@example.com">
+                        </label>
+
+                        </div>
+                    </section>
+
+                    <!-- FARM PREFERENCES -->
+                    <section class="panel settings-panel">
+                        <div class="settings-section-heading">
+                            <div class="settings-section-icon">🌾</div>
+                            <div>
+                                <h2>Farm Preferences</h2>
+                                <p>Choose your preferred units and display formats.</p>
+                            </div>
+                        </div>
+
+                        <div class="settings-fields">
+
+                            <label class="settings-field">
+                            <span>Area Unit</span>
+                            <select name="areaUnit">
+                                <option value="acres">Acres</option>
+                                <option value="hectares">Hectares</option>
+                            </select>
+                            <small>Preferred unit for recording farm area.</small>
+                        </label>
+
+                            <label class="settings-field">
+                            <span>Currency</span>
+                            <select name="currency">
+                                <option value="INR">Indian Rupee (₹ INR)</option>
+                                <option value="USD">US Dollar ($ USD)</option>
+                            </select>
+                            <small>Preferred currency for future integrations.</small>
+                        </label>
+
+                            <label class="settings-field">
+                            <span>Language Preference</span>
+                            <select name="language">
+                                <option value="English">English</option>
+                                <option value="Hindi">Hindi</option>
+                                <option value="Hinglish">Hinglish</option>
+                            </select>
+                        </label>
+
+                            <label class="settings-field">
+                            <span>Date Format</span>
+                            <select name="dateFormat">
+                                <option value="DD MMM YYYY">14 Oct 2026</option>
+                                <option value="DD/MM/YYYY">14/10/2026</option>
+                                <option value="MM/DD/YYYY">10/14/2026</option>
+                                <option value="YYYY-MM-DD">2026-10-14</option>
+                            </select>
+                        </label>
+
+                        </div>
+                    </section>
+
+                    <!-- NOTIFICATION PREFERENCES -->
+                    <section class="panel settings-panel">
+                        <div class="settings-section-heading">
+                            <div class="settings-section-icon">🔔</div>
+                            <div>
+                                <h2>Notification Preferences</h2>
+                                <p>Choose the types of reminders you'd like to enable.</p>
+                            </div>
+                        </div>
+
+                        <div class="settings-notifications">
+
+                            <label class="settings-toggle-row">
+                            <span class="settings-toggle-copy">
+                                <strong>Task Reminders</strong>
+                                <small>Preferences for pending and upcoming farm tasks.</small>
+                            </span>
+                            <input type="checkbox" name="taskReminders" checked>
+                            <span class="settings-switch"></span>
+                        </label>
+
+                            <label class="settings-toggle-row">
+                            <span class="settings-toggle-copy">
+                                <strong>Low Stock Alerts</strong>
+                                <small>Preferences for inventory items that need restocking.</small>
+                            </span>
+                            <input type="checkbox" name="lowStockAlerts" checked>
+                            <span class="settings-switch"></span>
+                        </label>
+
+                            <label class="settings-toggle-row">
+                            <span class="settings-toggle-copy">
+                                <strong>Maintenance Reminders</strong>
+                                <small>Preferences for farm machinery servicing.</small>
+                            </span>
+                            <input type="checkbox" name="maintenanceReminders" checked>
+                            <span class="settings-switch"></span>
+                        </label>
+
+                            <label class="settings-toggle-row">
+                            <span class="settings-toggle-copy">
+                                <strong>Weekly Farm Summary</strong>
+                                <small>Preference for a weekly summary of farm activity.</small>
+                            </span>
+                            <input type="checkbox" name="weeklySummary">
+                            <span class="settings-switch"></span>
+                        </label>
+
+                        </div>
+
+                        <p class="settings-note">
+                            These options save your preferences. Automatic alerts, push notifications and weekly emails are not enabled by this page alone.
+                        </p>
+                    </section>
+
+                    <!-- SAVE ACTIONS -->
+                    <div class="settings-actions">
+                        <button class="button button-light" type="button" id="resetSettings">Restore Defaults</button>
+
+                        <button class="button button-primary" type="submit">Save Settings</button>
+                    </div>
+
+                </form>
+
+                <!-- ACCOUNT -->
+                <section class="panel settings-panel data-tools">
+                    <div class="settings-section-heading">
+                        <div class="settings-section-icon">👤</div>
+                        <div>
+                            <h2>Account</h2>
+                            <p id="accountInfo">Signed in.</p>
+                        </div>
+                    </div>
+                    <div class="data-tool-buttons">
+                        <button class="button button-primary" type="button" id="logoutBtn">Log out</button>
+                        <button class="button button-light" type="button" id="deleteAccountBtn">Delete my account and data</button>
+                    </div>
+                </section>
+
+                <!-- DATA TOOLS -->
+                <section class="panel settings-panel data-tools">
+                    <div class="settings-section-heading">
+                        <div class="settings-section-icon">💾</div>
+                        <div>
+                            <h2>Your data</h2>
+                            <p>Data is saved only in this browser. Download a backup to keep it safe or move it to another device.</p>
+                        </div>
+                    </div>
+                    <div class="data-tool-buttons">
+                        <button class="button button-primary" type="button" id="backupData">↓ Download backup</button>
+                        <label class="button button-light" for="restoreFile">↑ Restore from backup</label>
+                        <input type="file" id="restoreFile" accept="application/json,.json" hidden>
+                        <button class="button button-light" type="button" id="startFresh">Start with an empty farm</button>
+                    </div>
+                </section>
+
+                <!-- LOCAL DATA NOTE -->
+                <div class="settings-storage-note">
+                    <span class="settings-storage-icon">🔒</span>
+                    <div>
+                        <strong>Your settings are stored in this browser</strong>
+                        <p>
+                            This version uses local browser storage. Settings do not yet sync to another device or an online account.
+                        </p>
+                    </div>
+                </div>
+
+                <footer class="footer">
+                    <span>
+                    © <span id="currentYear"></span> FieldPilot AI. Smarter Operations. Better Farming.
+                    </span>
+                    <span>🌱 Growing a better tomorrow</span>
+                </footer>
+
+            </section>
+        </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="/static/shared.js"></script>
+
+    <script src="/static/settings.js"></script>
+</body>
+
+</html>

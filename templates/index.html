@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FieldPilot AI — Smarter Operations. Better Farming.">
+    <title>FieldPilot AI | Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+<link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#1f7a4d">
+    <link rel="icon" href="/static/icons/icon-192.png">
+    <link rel="apple-touch-icon" href="/static/icons/icon-192.png">
+    <script>window.__FP_DATA__ = {{ fp_data|tojson }}; window.__FP_USER__ = {{ fp_user|tojson }};</script>
+</head>
+
+<body>
+    <div class="app-shell">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+
+            <a class="brand" href="index.html">
+                <span class="brand-mark">🌱</span>
+                <span>
+                    <strong>FieldPilot <em>AI</em></strong>
+                    <small>SMART FARMING PLATFORM</small>
+                </span>
+            </a>
+
+            <div class="farm-switcher">
+                <span class="farm-avatar">F</span>
+                <span>
+                    <strong>My Farm</strong>
+                    <small>Farm workspace</small>
+                </span>
+                <span class="switcher-dot">●</span>
+            </div>
+
+            <p class="nav-label">WORKSPACE</p>
+
+            <nav class="nav-list" aria-label="Main navigation">
+                <a class="nav-link active" href="index.html">
+                    <span class="nav-icon">▦</span>Dashboard
+                </a>
+
+                <a class="nav-link" href="crops.html">
+                    <span class="nav-icon">♧</span>Crops &amp; Fields
+                </a>
+
+                <a class="nav-link" href="finance.html">
+                    <span class="nav-icon">₹</span>Finance
+                </a>
+
+                <a class="nav-link" href="inventory.html">
+                    <span class="nav-icon">▤</span>Inventory
+                </a>
+
+                <a class="nav-link" href="machinery.html">
+                    <span class="nav-icon">⚙</span>Machinery
+                </a>
+
+                <a class="nav-link" href="labour.html">
+                    <span class="nav-icon">♙</span>Labour
+                </a>
+
+                <a class="nav-link" href="tasks.html">
+                    <span class="nav-icon">✓</span>Tasks
+                </a>
+            </nav>
+
+            <p class="nav-label tools-label">TOOLS</p>
+
+            <a class="nav-link" href="assistant.html">
+                <span class="nav-icon">✧</span>AI Farm Assistant
+            </a>
+
+            <a class="nav-link" href="settings.html">
+                <span class="nav-icon">⚙</span>Settings
+            </a>
+
+            <div class="sidebar-bottom">
+                <div class="help-card">
+                    <span class="help-icon">✦</span>
+                    <strong>Grow smarter</strong>
+                    <p>Keep your farm records in one place.</p>
+
+                    <button class="help-link page-navigation" type="button" data-target="assistant.html">
+                        Explore assistant →
+                    </button>
+                </div>
+
+                <div class="profile-row">
+                    <span class="profile-avatar">A</span>
+                    <span>
+                        <strong>Farm Admin</strong>
+                        <small>Workspace owner</small>
+                    </span>
+                    <span class="profile-menu">•••</span>
+                </div>
+            </div>
+
+        </aside>
+
+        <!-- MAIN DASHBOARD -->
+        <main class="main-area" id="dashboard">
+
+            <header class="topbar">
+                <button class="mobile-menu" id="mobileMenu" type="button" aria-label="Toggle navigation">☰</button>
+
+                <div class="breadcrumbs">
+                    <span>Workspace</span>
+                    <span class="crumb-slash">/</span>
+                    <strong>Dashboard</strong>
+                </div>
+
+                <div class="topbar-actions">
+                    <div class="today-pill">
+                        <span class="live-dot"></span>
+                        <span id="todayLabel">Today</span>
+                    </div>
+
+                    <button class="icon-button" id="notificationButton" type="button" title="Notifications" aria-label="Notifications">
+                        ♧<span class="notification-dot"></span>
+                    </button>
+
+                    <span class="top-avatar">A</span>
+                </div>
+            </header>
+
+            <section class="page-wrap">
+
+                <!-- PAGE HEADING -->
+                <div class="page-heading">
+                    <div>
+                        <div class="eyebrow">
+                            <span class="eyebrow-dot"></span> YOUR FARM, AT A GLANCE
+                        </div>
+
+                        <h1>
+                            <span id="greetingText">Hello</span>, Farmer.
+                        </h1>
+
+                        <p>Here’s what’s happening across your farm today.</p>
+                    </div>
+
+                    <div class="heading-actions">
+                        <button class="button button-light" id="exportButton" type="button">↓ Export data</button>
+
+                        <button class="button button-primary" id="addRecordButton" type="button">＋ Add record</button>
+                    </div>
+                </div>
+
+                <!-- SUMMARY CARDS -->
+                <section class="stats-grid" id="statsGrid" aria-label="Farm summary"></section>
+
+                <!-- DASHBOARD CONTENT -->
+                <section class="content-grid">
+
+                    <!-- CROP OVERVIEW -->
+                    <article class="panel crop-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h2>Crop overview</h2>
+                                <p>Track progress across your fields</p>
+                            </div>
+
+                            <button class="text-button page-navigation" type="button" data-target="crops.html">View all →</button>
+                        </div>
+
+                        <div class="crop-list" id="cropList"></div>
+                    </article>
+
+                    <!-- TODAY'S TASKS -->
+                    <article class="panel tasks-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h2>Today’s tasks</h2>
+                                <p>Stay on top of farm work</p>
+                            </div>
+
+                            <span class="count-badge" id="taskBadge">0 pending</span>
+                        </div>
+
+                        <div class="task-list" id="taskList"></div>
+                        <button class="button button-outline full-button" id="addTaskButton" type="button">＋ Add a task</button>
+                    </article>
+
+                    <!-- FINANCE SNAPSHOT -->
+                    <article class="panel finance-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h2>Financial snapshot</h2>
+                                <p>Income and expenses at a glance</p>
+                            </div>
+
+                            <button class="text-button page-navigation" type="button" data-target="finance.html">View details →</button>
+                        </div>
+
+                        <div class="finance-total" id="financeTotal"></div>
+                        <div class="finance-bars" id="financeBars"></div>
+                    </article>
+
+                    <!-- RECENT TRANSACTIONS -->
+                    <article class="panel transactions-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h2>Recent transactions</h2>
+                                <p>Your latest farm activity</p>
+                            </div>
+
+                            <button class="text-button page-navigation" type="button" data-target="finance.html">View all →</button>
+                        </div>
+
+                        <div class="transaction-list" id="transactionList"></div>
+                    </article>
+
+                </section>
+
+                <footer class="footer">
+                    <span>
+                        © <span id="currentYear">2026</span> FieldPilot AI. Smarter Operations. Better Farming.
+                    </span>
+                    <span>
+                        <span class="footer-leaf">🌱</span> Growing a better tomorrow
+                    </span>
+                </footer>
+
+            </section>
+        </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="/static/shared.js"></script>
+    <script src="/static/app.js"></script>
+</body>
+
+</html>

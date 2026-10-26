@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Manage farm seeds, fertilizers, pesticides and supplies with FieldPilot AI.">
+    <title>Inventory | FieldPilot AI</title>
+    <link rel="stylesheet" href="/static/style.css">
+<link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#1f7a4d">
+    <link rel="icon" href="/static/icons/icon-192.png">
+    <link rel="apple-touch-icon" href="/static/icons/icon-192.png">
+    <script>window.__FP_DATA__ = {{ fp_data|tojson }}; window.__FP_USER__ = {{ fp_user|tojson }};</script>
+</head>
+
+<body>
+
+    <div class="app-shell">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+
+            <a class="brand" href="index.html">
+                <span class="brand-mark">🌱</span>
+                <span>
+                    <strong>FieldPilot <em>AI</em></strong>
+                    <small>SMART FARMING PLATFORM</small>
+                </span>
+            </a>
+
+            <div class="farm-switcher">
+                <span class="farm-avatar">F</span>
+                <span>
+                    <strong>My Farm</strong>
+                    <small>Farm workspace</small>
+                </span>
+                <span class="switcher-dot">●</span>
+            </div>
+
+            <p class="nav-label">WORKSPACE</p>
+
+            <nav class="nav-list" aria-label="Main navigation">
+                <a class="nav-link" href="index.html">
+                    <span class="nav-icon">▦</span>Dashboard
+                </a>
+
+                <a class="nav-link" href="crops.html">
+                    <span class="nav-icon">♧</span>Crops &amp; Fields
+                </a>
+
+                <a class="nav-link" href="finance.html">
+                    <span class="nav-icon">₹</span>Finance
+                </a>
+
+                <a class="nav-link active" href="inventory.html">
+                    <span class="nav-icon">▤</span>Inventory
+                </a>
+
+                <a class="nav-link" href="machinery.html">
+                    <span class="nav-icon">⚙</span>Machinery
+                </a>
+
+                <a class="nav-link" href="labour.html">
+                    <span class="nav-icon">♙</span>Labour
+                </a>
+
+                <a class="nav-link" href="tasks.html">
+                    <span class="nav-icon">✓</span>Tasks
+                </a>
+            </nav>
+
+            <p class="nav-label tools-label">TOOLS</p>
+
+            <a class="nav-link" href="assistant.html">
+                <span class="nav-icon">✧</span>AI Farm Assistant
+            </a>
+
+            <a class="nav-link" href="settings.html">
+                <span class="nav-icon">⚙</span>Settings
+            </a>
+
+            <div class="sidebar-bottom">
+
+                <div class="help-card">
+                    <span class="help-icon">✦</span>
+                    <strong>Grow smarter</strong>
+                    <p>Keep your farming supplies organized and ready.</p>
+                </div>
+
+                <div class="profile-row">
+                    <span class="profile-avatar">A</span>
+                    <span>
+                        <strong>Farm Admin</strong>
+                        <small>Workspace owner</small>
+                    </span>
+                </div>
+
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-area">
+
+            <header class="topbar">
+                <button class="mobile-menu" id="mobileMenu" type="button" aria-label="Open menu">☰</button>
+
+                <div class="breadcrumbs">
+                    <a href="index.html" class="inventory-breadcrumb">
+                        Workspace
+                    </a>
+                    <span>/</span>
+                    <strong>Inventory</strong>
+                </div>
+
+                <div class="topbar-actions">
+                    <div class="today-pill">
+                        <span class="live-dot"></span>
+                        <span id="todayLabel">Today</span>
+                    </div>
+                    <span class="top-avatar">A</span>
+                </div>
+            </header>
+
+            <section class="page-wrap">
+
+                <!-- PAGE HEADING -->
+                <div class="page-heading">
+                    <div>
+                        <div class="eyebrow">
+                            <span class="eyebrow-dot"></span> FARM RESOURCE MANAGEMENT
+                        </div>
+
+                        <h1>Farm <span>Inventory</span></h1>
+
+                        <p>
+                            Track seeds, fertilizers, pesticides and other farm supplies in one place.
+                        </p>
+                    </div>
+
+                    <div class="heading-actions">
+                        <button class="button button-light" type="button" id="exportInventory">Export CSV</button>
+
+                        <button class="button button-primary" type="button" id="openInventoryForm">＋ Add Item</button>
+                    </div>
+                </div>
+
+                <!-- SUMMARY CARDS -->
+                <div class="inventory-stats">
+
+                    <article class="inventory-stat">
+                        <div class="inventory-stat-icon">📦</div>
+                        <small>Total Products</small>
+                        <strong id="totalProducts">0</strong>
+                        <span>Different inventory items</span>
+                    </article>
+
+                    <article class="inventory-stat">
+                        <div class="inventory-stat-icon">✅</div>
+                        <small>In Stock</small>
+                        <strong id="inStockCount">0</strong>
+                        <span>Items above minimum stock</span>
+                    </article>
+
+                    <article class="inventory-stat">
+                        <div class="inventory-stat-icon">⚠️</div>
+                        <small>Low Stock</small>
+                        <strong id="lowStockCount">0</strong>
+                        <span>Items that need attention</span>
+                    </article>
+
+                    <article class="inventory-stat">
+                        <div class="inventory-stat-icon">💰</div>
+                        <small>Stock Value</small>
+                        <strong id="totalStockValue">₹0</strong>
+                        <span>Estimated value of current stock</span>
+                    </article>
+
+                </div>
+
+                <!-- SEARCH AND FILTERS -->
+                <div class="inventory-toolbar">
+
+                    <input type="search" id="searchInventory" placeholder="🔍 Search item, supplier or location..." aria-label="Search inventory">
+
+                    <select id="categoryFilter" aria-label="Filter by category">
+                        <option value="All">All Categories</option>
+                        <option value="Seeds">Seeds</option>
+                        <option value="Fertilizer">Fertilizer</option>
+                        <option value="Pesticide">Pesticide</option>
+                        <option value="Tools">Tools &amp; Supplies</option>
+                        <option value="Fuel">Fuel</option>
+                        <option value="Other">Other</option>
+                    </select>
+
+                    <select id="stockFilter" aria-label="Filter by stock status">
+                        <option value="All">All Stock Status</option>
+                        <option value="In Stock">In Stock</option>
+                        <option value="Low Stock">Low Stock</option>
+                        <option value="Out of Stock">Out of Stock</option>
+                    </select>
+
+                    <button class="button button-light" type="button" id="resetInventoryFilters">Reset</button>
+                </div>
+
+                <!-- ADD ITEM FORM -->
+                <section class="panel inventory-form-panel" id="inventoryFormPanel" hidden>
+
+                    <div class="panel-heading">
+                        <div>
+                            <h2>Add Inventory Item</h2>
+                            <p>Enter the product and available stock details.</p>
+                        </div>
+                    </div>
+
+                    <form id="inventoryForm" class="inventory-form">
+
+                        <label>
+                            Item Name
+                            <input
+                                type="text"
+                                name="itemName"
+                                required
+                                maxlength="100"
+                                placeholder="e.g. Wheat Seeds">
+                        </label>
+
+                        <label>
+                            Category
+                            <select name="category" required>
+                                <option value="Seeds">Seeds</option>
+                                <option value="Fertilizer">Fertilizer</option>
+                                <option value="Pesticide">Pesticide</option>
+                                <option value="Tools">Tools &amp; Supplies</option>
+                                <option value="Fuel">Fuel</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </label>
+
+                        <label>
+                            Current Quantity
+                            <input
+                                type="number"
+                                name="quantity"
+                                min="0"
+                                step="0.01"
+                                required
+                                placeholder="e.g. 20">
+                        </label>
+
+                        <label>
+                            Unit
+                            <select name="unit" required>
+                                <option value="bags">Bags</option>
+                                <option value="kg">Kilograms (kg)</option>
+                                <option value="litres">Litres</option>
+                                <option value="pieces">Pieces</option>
+                                <option value="packets">Packets</option>
+                                <option value="tonnes">Tonnes</option>
+                            </select>
+                        </label>
+
+                        <label>
+                            Minimum Stock Level
+                            <input
+                                type="number"
+                                name="minimum"
+                                min="0"
+                                step="0.01"
+                                required
+                                value="5">
+                        </label>
+
+                        <label>
+                            Cost Per Unit (₹)
+                            <input
+                                type="number"
+                                name="unitCost"
+                                min="0"
+                                step="0.01"
+                                required
+                                placeholder="e.g. 1200">
+                        </label>
+
+                        <label>
+                            Supplier
+                            <input
+                                type="text"
+                                name="supplier"
+                                maxlength="100"
+                                placeholder="e.g. Local Agro Store">
+                        </label>
+
+                        <label>
+                            Storage Location
+                            <input
+                                type="text"
+                                name="location"
+                                maxlength="100"
+                                placeholder="e.g. Store Room">
+                        </label>
+
+                        <div class="inventory-form-actions">
+                            <button class="button button-light" type="button" id="cancelInventoryForm">Cancel</button>
+
+                            <button class="button button-primary" type="submit">Save Item</button>
+                        </div>
+
+                    </form>
+                </section>
+
+                <!-- INVENTORY TABLE -->
+                <section class="panel inventory-panel">
+
+                    <div class="panel-heading">
+                        <div>
+                            <h2>Inventory Records</h2>
+                            <p>View available quantities and identify items to restock.</p>
+                        </div>
+                        <span class="inventory-record-count" id="recordCount">
+                            0 items
+                        </span>
+                    </div>
+
+                    <div class="inventory-table-wrap">
+                        <table class="inventory-table">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Category</th>
+                                    <th>Quantity</th>
+                                    <th>Minimum</th>
+                                    <th>Unit Cost</th>
+                                    <th>Stock Value</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="inventoryTableBody"></tbody>
+                        </table>
+
+                        <div class="inventory-empty" id="inventoryEmpty" hidden>
+                            No inventory items found. Try another filter or add a new item.
+                        </div>
+                    </div>
+                </section>
+
+                <footer class="footer">
+                    <span>
+                        © <span id="currentYear"></span> FieldPilot AI. Smarter Operations. Better Farming.
+                    </span>
+                    <span>🌱 Growing a better tomorrow</span>
+                </footer>
+
+            </section>
+        </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="/static/shared.js"></script>
+
+    <script src="/static/inventory.js"></script>
+</body>
+
+</html>
